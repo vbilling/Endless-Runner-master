@@ -26,7 +26,7 @@ class Menu extends Phaser.Scene{
 
         // menu text
 
-        this.add.text(game.config.width/2 + 15, game.config.height/2 - 50,' click to start', menuConfig).setOrigin(0.5);
+        this.startText = this.add.text(game.config.width/2 + 15, game.config.height/2 - 50,' click to start', menuConfig).setOrigin(0.5);
 
         //define key
         keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -39,9 +39,11 @@ class Menu extends Phaser.Scene{
     }
     update(){
 
+        
+
         if(Phaser.Input.Keyboard.JustDown(keySpace) || this.pointer.isDown ){
             game.settings = {
-                platformStartSpeed: 350, 
+                platformStartSpeed: 300, //used to be 350
                 //spawn range, how far the rightmost platform should be from the right edge
                 //before the next platform spawns in
                 spawnRange: [80, 100],
@@ -56,13 +58,13 @@ class Menu extends Phaser.Scene{
                 //player Gravity
                 playerGravity: 900,
                 //player jump force 
-                jumpForce: 500, 
+                jumpForce: 400, //used to be 500
                 //player starting x position
                 playerStartPosition: 150, 
                 //consecutive jumps allowed
                 jumps: 2
             }
-            this.scene.start('introScene');
+            this.scene.start('playScene');
         }
 
     }

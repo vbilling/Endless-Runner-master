@@ -11,6 +11,8 @@ class Play extends Phaser.Scene{
         this.load.atlas('seahorse', './assets/seahorse.png', './assets/seahorse.json');
         this.load.atlas('jellyfish', './assets/jellyfishplatform.png', './assets/jellyfish.json');
         this.load.atlas('jellyfishPink', './assets/jellyfishPink.png', './assets/jellyfishPink.json');
+        this.load.spritesheet('jellyfishGreen', './assets/jellyfishGreen.png', {frameWidth: 180, frameHeight: 180, startFrame: 0, endFrame: 7});
+        this.load.spritesheet('jellyfishBlue', './assets/jellyfishBlue.png', {frameWidth: 180, frameHeight: 180, startFrame: 0, endFrame: 7});
         this.load.image('bubble', './assets/bubble.png');
         this.load.image('thoughtBubble', './assets/thoughtBubble.png');
         this.load.spritesheet('expressions', './assets/expressions.png', {frameWidth: 500, frameHeight: 375, startFrame: 0, endFrame: 1});
@@ -54,11 +56,19 @@ class Play extends Phaser.Scene{
         
         this.jellyfish.addPlatform(game.config.width, game.config.width/2, game.config.height * game.settings.platformVerticalLimit[1] );
 
+        this.jellyfish2 = new Jellyfish(this, this.platformPool, this.platformGroup, 'jellyfishGreen');
+        
+        this.jellyfish2.addPlatform(game.config.width, game.config.width/2, game.config.height * game.settings.platformVerticalLimit[1] );
+        
+        this.jellyfish3 = new Jellyfish(this, this.platformPool, this.platformGroup, 'jellyfishBlue');
+        
+        this.jellyfish3.addPlatform(game.config.width, game.config.width/2, game.config.height * game.settings.platformVerticalLimit[1] );
+
         // adding the player;
         this.horse = new Seahorse(this,game.settings.playerStartPosition, game.config.height * 0.7, 'seahorseJump', 0);
 
         //adding seahorse expression
-        this.expression = this.add.sprite(10, 15, 'expressions').setOrigin(0);
+        this.expression = this.add.sprite(5, 15, 'expressions').setOrigin(0);
         this.expression.setScale(0.27);
         
         this.anims.create({
@@ -146,9 +156,14 @@ class Play extends Phaser.Scene{
         //thought bubble
         this.thoughtBubble = this.add.sprite(110, 5, 'thoughtBubble').setOrigin(0, 0);
         //creating the seahorse's thoughts while you play
-        this.phrases_array = ["I'm going to be a father", "Better Hurry", "AHHHH"]
+        this.phrases_array = ["I'm going to be a father", 
+        "Better Hurry", 
+        "AHHHHHHHHHHHHHHHHHHHHH", 
+        "Wheres a clambulence \nwhen you need one?!"]
         this.phrasestimer = 0;
-        this.phrasetext = this.add.text(this.thoughtBubble.x + 55, this.thoughtBubble.y + 25, this.phrases_array[0], phrasesConfig);
+        this.phrasetext = this.add.text(this.thoughtBubble.x + 55, this.thoughtBubble.y + 15, this.phrases_array[0], phrasesConfig);
+
+
         
     }
 
@@ -205,8 +220,9 @@ class Play extends Phaser.Scene{
             this.phrasestimer += 1;
             //console.log('phrasestimer =', this.phrasestimer);
         }else{
-            this.pick_phrase = random(0,2);
+            this.pick_phrase = random(2,3);
             this.phrasetext.text = this.phrases_array[this.pick_phrase];
+            this.expression.setFrame(this.pick_phrase);
             this.phrasestimer = 0;
         };
 
