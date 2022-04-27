@@ -12,6 +12,8 @@ class Play extends Phaser.Scene{
         this.load.atlas('jellyfish', './assets/jellyfishplatform.png', './assets/jellyfish.json');
         this.load.atlas('jellyfishPink', './assets/jellyfishPink.png', './assets/jellyfishPink.json');
         this.load.image('bubble', './assets/bubble.png');
+        this.load.image('thoughtBubble', './assets/thoughtBubble.png');
+        this.load.spritesheet('expressions', './assets/expressions.png', {frameWidth: 500, frameHeight: 375, startFrame: 0, endFrame: 1});
 
 
         this.load.spritesheet('seahorseJump', './assets/seahorsejump.png', {frameWidth: 74, frameHeight: 80, startFrame: 0, endFrame: 1});
@@ -54,6 +56,10 @@ class Play extends Phaser.Scene{
 
         // adding the player;
         this.horse = new Seahorse(this,game.settings.playerStartPosition, game.config.height * 0.7, 'seahorseJump', 0);
+
+        //adding seahorse expression
+        this.expression = this.add.sprite(10, 15, 'expressions').setOrigin(0);
+        this.expression.setScale(0.27);
         
         this.anims.create({
             key: 'move',
@@ -114,6 +120,18 @@ class Play extends Phaser.Scene{
             },
             fixedWidth: 100
         };
+        let phrasesConfig = {
+            fontFamily: 'Chalkduster',
+            fontSize: '15px',
+            color: 'black',
+            align: 'center',
+            //stroke: '#415392', //#526aba
+            //strokeThickness: 3,
+            padding: {
+                top: 5,
+                bottom: 4
+            },
+        };
         // initilize timer integer at 0 in create
         this.gametimer = 0;
         // write game timer text in update
@@ -124,6 +142,13 @@ class Play extends Phaser.Scene{
         this.timertext = this.add.text(537, 27, this.gametimer, gametimerConfig);
 
         this.pointer = this.input.activePointer;
+        
+        //thought bubble
+        this.thoughtBubble = this.add.sprite(110, 5, 'thoughtBubble').setOrigin(0, 0);
+        //creating the seahorse's thoughts while you play
+        this.phrases_array = ["I'm going to be a father", "Better Hurry", "AHHHH"]
+        this.phrasestimer = 0;
+        this.phrasetext = this.add.text(this.thoughtBubble.x + 55, this.thoughtBubble.y + 25, this.phrases_array[0], phrasesConfig);
         
     }
 
@@ -172,6 +197,19 @@ class Play extends Phaser.Scene{
         
         this.gametimer += 1;
         this.timertext.text = Math.round(this.gametimer/60);
+        function random(mn, mx) {
+            return Math.round(Math.random() * (mx - mn) + mn);
+        };
+        // makeing a random phrase from the phrases array be choosen and appear after a few seconds 
+        if(this.phrasestimer < 300) {
+            this.phrasestimer += 1;
+            //console.log('phrasestimer =', this.phrasestimer);
+        }else{
+            this.pick_phrase = random(0,2);
+            this.phrasetext.text = this.phrases_array[this.pick_phrase];
+            this.phrasestimer = 0;
+        };
+
 
 
     }
