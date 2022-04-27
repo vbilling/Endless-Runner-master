@@ -8,10 +8,9 @@ class Menu extends Phaser.Scene{
     }
     create(){
         let menuConfig = {
-            fontFamily: 'Courier',
+            fontFamily: 'Phosphate',
             fontSize: '24px',
-            backgroundColor: 'red',
-            color: 'black',
+            color: 'white',
             align: 'center',
             padding: {
                 top: 5,
@@ -27,7 +26,7 @@ class Menu extends Phaser.Scene{
 
         // menu text
 
-        //this.add.text(game.config.width/2, game.config.height/2,' Press Space to start \n or click the screen \n \n click the screen to jump up to two times', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2 + 15, game.config.height/2 - 50,' click to start', menuConfig).setOrigin(0.5);
 
         //define key
         keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -60,7 +59,7 @@ class Menu extends Phaser.Scene{
                 //consecutive jumps allowed
                 jumps: 2
             }
-            this.scene.start('playScene');
+            this.scene.start('introScene');
         }
 
     }
