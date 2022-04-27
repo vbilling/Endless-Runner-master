@@ -33,6 +33,9 @@ class Menu extends Phaser.Scene{
 
         this.pointer = this.input.activePointer;
 
+        
+
+
     }
     update(){
 
@@ -59,7 +62,7 @@ class Menu extends Phaser.Scene{
                 //consecutive jumps allowed
                 jumps: 2
             }
-            this.scene.start('introScene');
+            this.scene.start('playScene');
         }
 
     }

@@ -2,7 +2,7 @@ let config = {
     type: Phaser.CANVAS, 
     width: 640, 
     height: 480, 
-    scene: [ Menu, Play, Intro ], 
+    scene: [ Menu, Play, Intro, Gameover], 
 
     physics: {
         default: "arcade", 
@@ -13,6 +13,12 @@ let config = {
 }
 
 let game = new Phaser.Game(config);
+
+let highscore = 0;
+
+// reserve keyboard vars
+let keyLEFT;
+
 
 
 let keySpace;

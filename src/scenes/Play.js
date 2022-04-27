@@ -11,6 +11,7 @@ class Play extends Phaser.Scene{
         this.load.atlas('seahorse', './assets/seahorse.png', './assets/seahorse.json');
         this.load.atlas('jellyfish', './assets/jellyfishplatform.png', './assets/jellyfish.json');
         this.load.atlas('jellyfishPink', './assets/jellyfishPink.png', './assets/jellyfishPink.json');
+        this.load.image('bubble', './assets/bubble.png');
 
 
         this.load.spritesheet('seahorseJump', './assets/seahorsejump.png', {frameWidth: 74, frameHeight: 80, startFrame: 0, endFrame: 1});
@@ -19,6 +20,7 @@ class Play extends Phaser.Scene{
     }
 
     create(){
+
 
         this.oceanfield =  this.add.tileSprite(0,0, game.config.width, game.config.height, 'oceanfield').setOrigin(0,0);
         this.oceanfield2 = this.add.tileSprite(0,0, game.config.width, game.config.height, 'oceanfield2').setOrigin(0,0);
@@ -95,6 +97,34 @@ class Play extends Phaser.Scene{
 
         this.input.on("pointerdown", this.jump, this);
         //this.horse.myArcadeBody.setBounceY(1);
+
+        //game over
+        this.gameover = false;
+        //timer
+        let gametimerConfig = {
+            fontFamily: 'Chalkduster',
+            fontSize: '30px',
+            color: 'white',
+            align: 'center',
+            stroke: '#415392', //#526aba
+            strokeThickness: 3,
+            padding: {
+                top: 5,
+                bottom: 4
+            },
+            fixedWidth: 100
+        };
+        // initilize timer integer at 0 in create
+        this.gametimer = 0;
+        // write game timer text in update
+        // initilize text that writes game timer
+        this.bubble = this.add.sprite(540, 15, 'bubble').setOrigin(0);
+        this.bubble.setScale(0.25);
+        this.bubble.alpha = 0.87;
+        this.timertext = this.add.text(537, 27, this.gametimer, gametimerConfig);
+
+        this.pointer = this.input.activePointer;
+        
     }
 
     jump(){
@@ -117,15 +147,32 @@ class Play extends Phaser.Scene{
     update(){
         //game over
         if(this.horse.myArcadeBody.y > game.config.height){
-            this.scene.restart();
+            this.gameover = true;
         }
-        console.log('player jumps ' + this.horse.playerJumps);
+
+        //game over
+        if(this.gameover == true){
+            //cheking if your high score is higher than your last high score
+
+
+            if(Math.round(this.gametimer/60) > highscore){
+                highscore = Math.round(this.gametimer/60);
+                //console.log('final highscore:', highscore);
+            };
+            this.scene.restart();
+            this.scene.start('gameoverScene');
+        };
+        //console.log('player jumps ' + this.horse.playerJumps);
         this.oceanfield.tilePositionX += .5;
         this.oceanfield2.tilePositionX -= .5;
 
         this.horse.update();
         
-        this.jellyfish.update();        
+        this.jellyfish.update();  
+        
+        this.gametimer += 1;
+        this.timertext.text = Math.round(this.gametimer/60);
+
 
     }
 

@@ -9,7 +9,7 @@ class Intro extends Phaser.Scene{
 
     }
     create(){
-        this.intro1 = this.add.sprite(1,1, 'intro1').setOrigin(0);
+        this.intro1 = this.add.sprite(0,0, 'intro1').setOrigin(0);
         this.anims.create({
             key: 'intro_1',
             frames: this.anims.generateFrameNumbers('intro1', {start: 0, end: 64, first: 0}),
@@ -32,11 +32,11 @@ class Intro extends Phaser.Scene{
         });
 
         this.clock = this.time.delayedCall(8800, () => {
-            this.intro2 = this.add.sprite(1,1, 'intro2').setOrigin(0);
+            this.intro2 = this.add.sprite(0,0, 'intro2').setOrigin(0);
             this.intro2.anims.play('intro_2')});
             
         this.clock = this.time.delayedCall(12000, () => {
-            this.intro2 = this.add.sprite(1,1, 'intro3').setOrigin(0);
+            this.intro2 = this.add.sprite(0,0, 'intro3').setOrigin(0);
             this.intro2.anims.play('intro_3')});
         
         this.clock = this.time.delayedCall(15000, () => {
