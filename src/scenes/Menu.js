@@ -64,7 +64,7 @@ class Menu extends Phaser.Scene{
                 //platform max and min height
                 platformVerticalLimit: [0.4,0.8],
                 //player Gravity
-                playerGravity: 400, //is ballGravity
+                playerGravity: 500, //is ballGravity
                 //player jump force 
                 jumpForce: 900, //used to be 500 //is ballHeight
                 //player starting x position

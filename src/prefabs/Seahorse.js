@@ -11,7 +11,7 @@ class Seahorse extends Phaser.GameObjects.Sprite{
         this.myArcadeBody.setGravityY(game.settings.playerGravity);
 
         //from new tutorial
-        this.myArcadeBody.setBounce(1);
+        this.myArcadeBody.setBounce(0.9);
         //new
         this.myArcadeBody.setVelocityY(1);
         

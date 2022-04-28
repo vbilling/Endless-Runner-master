@@ -25,6 +25,7 @@ class Play extends Phaser.Scene{
     }
 
     create(){
+        
         //scrolling background
         this.oceanfield =  this.add.tileSprite(0,0, game.config.width, game.config.height, 'oceanfield').setOrigin(0,0);
         this.oceanfield2 = this.add.tileSprite(0,0, game.config.width, game.config.height, 'oceanfield2').setOrigin(0,0);
@@ -216,6 +217,8 @@ class Play extends Phaser.Scene{
         //keeps track of if you hit the platform so that space does not make you keep going down
         this.platformhit = false;
 
+        console.log('original velocity', this.horse.myArcadeBody.body.velocity.y)
+
 
 
         
@@ -243,7 +246,7 @@ class Play extends Phaser.Scene{
         //testing if space controls work
         //keep track of how long the space is held (will be used to decide how high you jump back up)
         if (this.horse.myArcadeBody.body.touching.down){
-            console.log('touching down');
+            //console.log('touching down');
             //will keep track of if you hit the platform
             this.platformhit = true;
 
@@ -251,24 +254,34 @@ class Play extends Phaser.Scene{
         if(keySpace.isDown){ //!this.horse.myArcadeBody.body.touching.down
             if(!this.horse.myArcadeBody.body.touching.down){
                 this.downtime += 1;
-                console.log('downtime:', this.downtime);
-                console.log('platform hit?', this.platformhit);
+                // console.log('downtime:', this.downtime);
+                //console.log('platform hit?', this.platformhit);
                 //the longer you hold it down, the higher you bounce
                 if(this.downtime > 6 && !this.platformhit){
-                    console.log('velocity:', this.downtime*10 + 80);
-                    this.horse.myArcadeBody.setVelocity(this.downtime*10 + 80); 
-                    //this.horse.myArcadeBody.x += 1;
-                    //this.horse.myArcadeBody.setBounce(1.5);
+                    //only if the velocity is not too high
+                    if (this.horse.myArcadeBody.body.velocity.y < 500){ 
+                        this.horse.myArcadeBody.setVelocity(this.horse.myArcadeBody.body.velocity.y + this.downtime*1.5); //this.downtime*10 + 80
+                        console.log('velocity ', this.horse.myArcadeBody.body.velocity.y);
+                    }
+
                 } 
 
             }
         }
+
+        //if you are going up too fast
+        if (this.horse.myArcadeBody.body.velocity.y < -500){
+            this.horse.myArcadeBody.setVelocity(this.horse.myArcadeBody.body.velocity.y + 200);
+
+        }
+
         
         if(keySpace.isUp){
             //variable for how long it was down is set back to 0
             this.downtime = 0;
             this.platformhit = false;
-            this.horse.myArcadeBody.setBounce(1);
+            //this.horse.myArcadeBody.setBounce(1);
+            
         }
         //game over
         if(this.horse.myArcadeBody.y > game.config.height){ //if(this.horse.myArcadeBody.y > game.config.height){ or just .y
