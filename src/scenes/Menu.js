@@ -64,9 +64,9 @@ class Menu extends Phaser.Scene{
                 //platform max and min height
                 platformVerticalLimit: [0.4,0.8],
                 //player Gravity
-                playerGravity: 300, //is ballGravity
+                playerGravity: 400, //is ballGravity
                 //player jump force 
-                jumpForce: 1200, //used to be 500 //is ballHeight
+                jumpForce: 900, //used to be 500 //is ballHeight
                 //player starting x position
                 playerStartPosition: 150, 
 
@@ -74,7 +74,7 @@ class Menu extends Phaser.Scene{
                 //consecutive jumps allowed
                 //jumps: 2
             }
-            this.scene.start('introScene');
+            this.scene.start('playScene');
         }
 
     }

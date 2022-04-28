@@ -254,23 +254,13 @@ class Play extends Phaser.Scene{
                 console.log('downtime:', this.downtime);
                 console.log('platform hit?', this.platformhit);
                 //the longer you hold it down, the higher you bounce
-                if(this.downtime < 6 && !this.platformhit){
-                    this.horse.myArcadeBody.y += 3; 
-                    this.horse.myArcadeBody.x += 0.5;
+                if(this.downtime > 6 && !this.platformhit){
+                    console.log('velocity:', this.downtime*10 + 80);
+                    this.horse.myArcadeBody.setVelocity(this.downtime*10 + 80); 
+                    //this.horse.myArcadeBody.x += 1;
+                    //this.horse.myArcadeBody.setBounce(1.5);
                 } 
-                if (this.downtime > 6 && !this.platformhit){
-                    this.horse.myArcadeBody.y += 6; 
-                    this.horse.myArcadeBody.x += 0.5;
 
-                    this.horse.myArcadeBody.setBounce(2);
-                } 
-                if (this.downtime > 12 && !this.platformhit){
-                    this.horse.myArcadeBody.y += 10;  
-                    this.horse.myArcadeBody.x += 1;
-
-                    this.horse.myArcadeBody.setBounce(3);
-
-                }
             }
         }
         
