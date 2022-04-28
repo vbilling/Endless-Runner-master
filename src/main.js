@@ -7,11 +7,12 @@ let config = {
     physics: {
         default: "arcade", 
         arcade: {
-            debug: false
+            debug: false,
         }
     }
 }
 
+//uncomment if tutorial code below is deleted
 let game = new Phaser.Game(config);
 
 let highscore = 0;
@@ -19,8 +20,9 @@ let highscore = 0;
 // reserve keyboard vars
 let keyLEFT;
 
-
-
-
-
 let keySpace;
+
+
+
+
+

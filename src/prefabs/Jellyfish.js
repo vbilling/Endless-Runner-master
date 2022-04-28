@@ -46,6 +46,7 @@ class Jellyfish extends Phaser.GameObjects.Sprite{
     addPlatform(platformWidth, posX, posY){
         this.addedPlatforms++;
         let platform;
+        //console.log('getLength', this.pool.getLength());
         if(this.pool.getLength()){
             platform = this.pool.getFirst();
             platform.x = posX;
@@ -56,7 +57,7 @@ class Jellyfish extends Phaser.GameObjects.Sprite{
         }
         else{
             platform = this.scene.physics.add.sprite(posX, posY, this.texture);
-            platform.setImmovable(true);
+            platform.setImmovable(true); //platforms fall when set ot false
             platform.setSize(100, 80);
             platform.setVelocityX(game.settings.platformStartSpeed * - 1);
             this.group.add(platform);

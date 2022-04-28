@@ -58,7 +58,7 @@ class Gameover extends Phaser.Scene{
         };
         let instructionsConfig = {
             fontFamily: 'Chalkduster',
-            fontSize: '30px',
+            fontSize: '26px',
             color: 'white',
             align: 'center',
             stroke: 'black', //#526aba
@@ -86,16 +86,18 @@ class Gameover extends Phaser.Scene{
         this.scoretext = this.add.text(250, 140, 'High Score:', highscoreConfig).setOrigin(0);
         this.add.text(this.scoretext.x + 130, this.scoretext.y, highscore, highscoreConfig).setOrigin(0);
         this.add.text(140, 170, 'GAME OVER', gameoverConfig).setOrigin(0);
-        this.add.text(200, 250, 'click to restart', instructionsConfig).setOrigin(0);
+        this.add.text(170, 250, 'press space to restart', instructionsConfig).setOrigin(0);
 
-        //defining keys
+        //defining keys (probs will delete this)
         this.pointer = this.input.activePointer;
+        //space key
+        keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
 
     }
     
     update(){
-        if (this.pointer.isDown) {
+        if (keySpace.isDown) {
             this.scene.start('playScene');    
           };
 
