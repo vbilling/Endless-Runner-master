@@ -15,7 +15,7 @@ class Play extends Phaser.Scene{
         this.load.spritesheet('jellyfishBlue', './assets/jellyfishBlue.png', {frameWidth: 180, frameHeight: 180, startFrame: 0, endFrame: 7});
         this.load.image('bubble', './assets/bubble.png');
         this.load.image('thoughtBubble', './assets/thoughtBubble.png');
-        this.load.spritesheet('expressions', './assets/expressions.png', {frameWidth: 500, frameHeight: 375, startFrame: 0, endFrame: 1});
+        this.load.spritesheet('expressions', './assets/expressions.png', {frameWidth: 500, frameHeight: 375, startFrame: 0, endFrame: 7});
 
 
         this.load.spritesheet('seahorseJump', './assets/seahorsejump.png', {frameWidth: 74, frameHeight: 80, startFrame: 0, endFrame: 1});
@@ -152,7 +152,7 @@ class Play extends Phaser.Scene{
         };
         let phrasesConfig = {
             fontFamily: 'Chalkduster',
-            fontSize: '15px',
+            fontSize: '12px',
             color: 'black',
             align: 'center',
             //stroke: '#415392', //#526aba
@@ -177,7 +177,7 @@ class Play extends Phaser.Scene{
         }
         
         //instructions text
-        this.instructions = this.add.text(30, 100, 'Press SPACE to fall faster and increase your bounce', instructionsConfig).setOrigin(0);
+        this.instructions = this.add.text(30, 100, 'Hold SPACE to fall faster and increase your bounce', instructionsConfig).setOrigin(0);
         this.instructions.setAlpha(0);
         // initilize timer integer at 0 in create
         this.gametimer = 0;
@@ -186,7 +186,7 @@ class Play extends Phaser.Scene{
         this.bubble = this.add.sprite(540, 15, 'bubble').setOrigin(0);
         this.bubble.setScale(0.25);
         this.bubble.alpha = 0.87;
-        this.timertext = this.add.text(564, 27, this.gametimer, gametimerConfig); //537
+        this.timertext = this.add.text(564, 27, this.gametimer, gametimerConfig).setOrigin(0); //564
 
         this.pointer = this.input.activePointer;
         
@@ -197,12 +197,17 @@ class Play extends Phaser.Scene{
         "Better Hurry", 
         "AHHHHHHHHHHHHHHHHHHHHH", 
         "Wheres a clambulence\nwhen you need one?!",
-        "So many jellyfish but\nno peanut butter",
+        "So many jellyfish but\nno peanut butter.",
         "What a great tune-a!",
-        "Oh god the dad jokes\n are starting already",
-        "At least we're getting\n plenty vitamin SEA",
+        "Oh god the dad jokes\n are starting already.",
+        "At least we're getting\n plenty vitamin SEA.",
         "I'm scalloping as fast\n as I can!",
-        "If 3 is triplets, what\n is 1,000?"
+        "If 3 is triplets, what\n is 1,000?",
+        "Outta the way Daddy's \n coming!",
+        "I'll name you daddy jr and \n daddy jr jr, anddaddy jr jr \njr...",
+        "Almost there baby!",
+        "Oh god how am I going \nto pay for 1,000 college tuitions?!",
+        "This is the happiest day of my life"
         ]
         this.phrasestimer = 0;
         this.phrasetext = this.add.text(this.thoughtBubble.x + 55, this.thoughtBubble.y + 15, this.phrases_array[0], phrasesConfig);
@@ -329,12 +334,13 @@ class Play extends Phaser.Scene{
             return Math.round(Math.random() * (mx - mn) + mn);
         };
         // makeing a random phrase from the phrases array be choosen and appear after a few seconds 
-        if(this.phrasestimer < 300) {
+        if(this.phrasestimer < 400) {
             this.phrasestimer += 1;
             //console.log('phrasestimer =', this.phrasestimer);
         }else{
             this.pick_phrase = random(0,this.phrases_array.length - 1);
             this.phrasetext.text = this.phrases_array[this.pick_phrase];
+            console.log('expression frame:', this.pick_phrase);
             this.expression.setFrame(this.pick_phrase);
             this.phrasestimer = 0;
         };

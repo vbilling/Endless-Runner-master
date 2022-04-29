@@ -51,7 +51,7 @@ class Menu extends Phaser.Scene{
                 platformDistanceRange: [15, 25], //150, 250
  
                 //FROM PAST TUTORIAL
-                platformStartSpeed: 250, //used to be 350 //same at platformSpeed
+                platformStartSpeed: 300, //used to be 350 //same at platformSpeed // 250
                 //spawn range, how far the rightmost platform should be from the right edge
                 //before the next platform spawns in
                 spawnRange: [30, 100], //80, 100 // 30, 50
@@ -74,7 +74,7 @@ class Menu extends Phaser.Scene{
                 //consecutive jumps allowed
                 //jumps: 2
             }
-            this.scene.start('playScene');
+            this.scene.start('introScene');
         }
 
     }
