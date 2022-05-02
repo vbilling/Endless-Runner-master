@@ -8,7 +8,7 @@ class Play extends Phaser.Scene{
         this.load.image('player', './assets/player.png');
         this.load.image('oceanfield', './assets/oceanfield.png');
         this.load.image('oceanfield2', './assets/oceanfield2.png');
-        this.load.atlas('seahorse', './assets/seahorse.png', './assets/seahorse.json');
+        //this.load.atlas('seahorse', './assets/seahorserun.png', './assets/seahorserun.json');
         this.load.atlas('jellyfish', './assets/jellyfishplatform.png', './assets/jellyfish.json');
         this.load.spritesheet('jellyfishPink', './assets/jellyfishPink.png', {frameWidth: 180, frameHeight: 180, startFrame: 0, endFrame: 1});
         this.load.spritesheet('jellyfishGreen', './assets/jellyfishGreencopy.png', {frameWidth: 180, frameHeight: 180, startFrame: 0, endFrame: 1});
@@ -24,7 +24,7 @@ class Play extends Phaser.Scene{
         this.load.spritesheet('pinkPlatform', './assets/pinkPlatform.png', {frameWidth: 120, frameHeight: 120, startFrame: 0, endFrame: 1})
 
         this.load.image('littleBubble', './assets/littleBubble.png'); //or bubble2
-        //this.load.atlas('seahorserun', './assets/seahorserun.png', './assets/seahorserun.json'); //the correct run animation
+        this.load.atlas('seahorserun', './assets/seahorserun.png', './assets/seahorserun.json'); //the correct run animation
 
 
     }
@@ -38,45 +38,6 @@ class Play extends Phaser.Scene{
         this.oceanfield2 = this.add.tileSprite(0,0, game.config.width, game.config.height, 'oceanfield2').setOrigin(0,0);
         
 
-
-        //new tutorial
-        // creation of the physics group which will contain all platforms
-        //this.platformGroup = this.physics.add.group();
-        
-        // ball sprite bound to an ARCADE body
-        //this.horse = this.physics.add.sprite(game.config.width * game.settings.ballPosition, game.config.height * game.settings.groundPosition - game.settings.jumpForce, "seahorseJump");
-
-
-        
-
-
-        
-        //this.bubbles.setDepth(0);
-        //this.horse.setDepth(2);
-
-
-
-        // set ball vertical gravity
-        //this.horse.myArcadeBody.setGravityY = game.settings.playerGravity; //this.horse.body.gravity.y
-
-
-        // set maximum restitution to the ball
-        //this.horse.myArcadeBody.setBounce(1);
-
-
-        // we will only check ball collision on its bottom side
-        //this.horse.body.checkCollision.down = true;
-        //this.horse.body.checkCollision.up = false;
-        //this.horse.body.checkCollision.left = false;
-        //this.horse.body.checkCollision.right = false;
-
-        // make ball physics body a little narrower than its sprite
-        //this.horse.setSize(30, 50, true);
-
-        // first platform will be exactly under the ball
-        //let platformX = this.horse.x;
-
-        //from past tutorial
         // group with all active platforms.
         this.platformGroup = this.add.group({ 
  
@@ -117,10 +78,6 @@ class Play extends Phaser.Scene{
 
         
 
-
-
-
-
         //bubble trail
         //myParticleSystem = myParticleManager.createEmitter
         this.bubbles = this.add.particles('littleBubble');
@@ -139,25 +96,26 @@ class Play extends Phaser.Scene{
             //follow: this.horse.myArcadeBody,
         });
         // adding the player 
-        this.horse = new Seahorse(this,game.settings.playerStartPosition, game.config.height * 0.7, 'seahorse', 0);
+        this.horse = new Seahorse(this,game.settings.playerStartPosition, game.config.height * 0.7, 'seahorserun', 0);
 
         this.makebubble.startFollow(this.horse.myArcadeBody);
-
 
 
         //adding seahorse expression
         this.expression = this.add.sprite(5, 15, 'expressions').setOrigin(0);
         this.expression.setScale(0.27);
-        
+
+
+       // console.log('seahorse run:', )
         this.anims.create({
             key: 'move',
-            frames: this.anims.generateFrameNames('seahorse', {
+            frames: this.anims.generateFrameNames('seahorserun', {
                 prefix: 'run', 
-                start: 0, 
-                end: 19, 
-                first: 0, 
+                //start: 0, 
+                end: 8, 
+                //first: 0, 
                 zeroPad: 2}),
-                frameRate: 10,
+                frameRate: 12,
                 repeat: -1
         });
 
@@ -168,13 +126,15 @@ class Play extends Phaser.Scene{
         //});
 
 
-        //this.horse.myArcadeBody.anims.play('move');
+        this.horse.myArcadeBody.anims.play('move');
 
 
        
         //from old tutorial
         // setting collisions between the player and the platform group
         this.physics.add.collider(this.horse.myArcadeBody, this.platformGroup);
+
+        
         
 
        
