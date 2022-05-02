@@ -213,10 +213,10 @@ class Play extends Phaser.Scene{
         "I'm scalloping as fast\n as I can!",
         "If 3 is triplets, what\n is 1,000?",
         "Outta the way Daddy's \n coming!",
-        "I'll name you daddy jr and \n daddy jr jr...",
+        "I'll name you daddy jr and \ndaddy jr jr...",
         "Almost there baby!",
         "Oh god how am I going to\n pay for 1,000 college tuitions?!",
-        "This is the happiest day of my life"
+        "This is the happiest day of \nmy life"
         ]
         this.phrasestimer = 0;
         this.phrasetext = this.add.text(this.thoughtBubble.x + 55, this.thoughtBubble.y + 15, this.phrases_array[0], phrasesConfig);
@@ -232,6 +232,9 @@ class Play extends Phaser.Scene{
         this.platformhit = false;
 
         //console.log('original velocity', this.horse.myArcadeBody.body.velocity.y)
+
+
+
 
 
 
@@ -258,6 +261,22 @@ class Play extends Phaser.Scene{
 
     
     update(){
+        //making the game get progressivly harder
+        if(Math.round(this.gametimer/60) < 5){
+            game.settings.platformSizeRange =[1,1];
+            game.settings.platformVerticalLimit = [0.9,0.9]
+        };
+        if(Math.round(this.gametimer/60) > 5){ 
+            game.settings.platformSizeRange =[30, 60]; 
+            game.settings.platformVerticalLimit = [0.4,0.9];
+        };
+        if(Math.round(this.gametimer/60) > 8 ){ 
+            game.settings.platformSizeRange =[50, 100]; 
+            game.settings.platformVerticalLimit = [0.5 ,0.9];
+            game.settings.platformStartSpeed = 500;
+            game.settings.spawnRange = [20, 200]; 
+        };
+
         //testing if space controls work
         //keep track of how long the space is held (will be used to decide how high you jump back up)
         if (this.horse.myArcadeBody.body.touching.down){

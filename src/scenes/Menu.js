@@ -77,9 +77,9 @@ class Menu extends Phaser.Scene{
                 platformStartSpeed: 300, //used to be 350 //same at platformSpeed // 250
                 //spawn range, how far the rightmost platform should be from the right edge
                 //before the next platform spawns in
-                spawnRange: [30, 100], //80, 100 // 30, 50
+                spawnRange: [30, 100], //80, 100 // 30, 50 //30, 100
                 //platform width range, might be useless in my implementation
-                platformSizeRange:[90,300], // is platformLengthRange
+                platformSizeRange:[30,100], // is platformLengthRange // 90, 300
                 //a height range between rightmost platform and next platform to be spawned
                 platformHeightRange: [-5,5],
                 //a scale to be multiplied by platform HeightRange

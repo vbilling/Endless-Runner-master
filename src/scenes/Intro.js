@@ -56,11 +56,7 @@ class Intro extends Phaser.Scene{
             this.intro2 = this.add.sprite(0,0, 'intro3').setOrigin(0);
             this.intro2.anims.play('intro_3')
         });
-        
-        //this.clock = this.time.delayedCall(15000, () => {
-
-            //this.scene.start('playScene');
-        //});
+        ;
 
                 
         this.clock = this.time.delayedCall(14000, () => {
@@ -70,7 +66,7 @@ class Intro extends Phaser.Scene{
             this.continue = true;
 
 
-            //this.scene.start('playScene');
+            
         });
         //make it fade in
         this.clock = this.time.delayedCall(14100, () => {
@@ -154,8 +150,6 @@ class Intro extends Phaser.Scene{
         if(this.continue == true && keySpace.isDown){
             this.scene.start('playScene');
         };
-
-
 
     }
 

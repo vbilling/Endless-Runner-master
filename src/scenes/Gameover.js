@@ -6,9 +6,7 @@ class Gameover extends Phaser.Scene{
         this.load.image('deathScreen', './assets/deathScreen.png');
         this.load.spritesheet('jellyfishGreendeath', './assets/jellyfishGreen.png', {frameWidth: 180, frameHeight: 180, startFrame: 0, endFrame: 7});
         this.load.image('deadSeahorse', './assets/deadSeahorse.png');
-
         this.load.image('tear', './assets/tear.png');
-
 
     }
     create(){
@@ -16,14 +14,11 @@ class Gameover extends Phaser.Scene{
         this.jellyfishGreen1 = this.add.sprite(30, 45, 'jellyfishGreendeath').setOrigin(0);
         this.jellyfishGreen2 = this.add.sprite(230, 10, 'jellyfishGreendeath').setOrigin(0);
         this.jellyfishGreen3 = this.add.sprite(430, 45, 'jellyfishGreendeath').setOrigin(0);
-        //this.jellyfishBlue = this.add.sprite(230, 10, 'jellyfishBlue').setOrigin(0);
-        //this.jellyfishPinkDeath = this.add.sprite(430, 45, 'jellyfishPinkDeath').setOrigin(0);
         this.deadSeahorse = this.add.sprite(200, 290, 'deadSeahorse').setOrigin(0);
 
         //jellyfish tears
         var tears1 = this.add.particles('tear');
         tears1.createEmitter({
-            //frame: 'blue',
             x: this.jellyfishGreen1.x+53, //83
             y: this.jellyfishGreen1.y+90,
             lifespan: 2000,
@@ -36,7 +31,6 @@ class Gameover extends Phaser.Scene{
         });
         var tears2 = this.add.particles('tear');
         tears2.createEmitter({
-            //frame: 'blue',
             x: this.jellyfishGreen1.x+117, //147 
             y: this.jellyfishGreen1.y+90,
             lifespan: 2000,
@@ -49,7 +43,6 @@ class Gameover extends Phaser.Scene{
         });
         var tears3 = this.add.particles('tear');
         tears3.createEmitter({
-            //frame: 'blue',
             x: this.jellyfishGreen1.x+253, 
             y: 100,
             lifespan: 2000,
@@ -62,7 +55,6 @@ class Gameover extends Phaser.Scene{
         });
         var tears4 = this.add.particles('tear');
         tears4.createEmitter({
-            //frame: 'blue',
             x: 347, 
             y: 105,
             lifespan: 2000,
@@ -88,7 +80,6 @@ class Gameover extends Phaser.Scene{
         });
         var tears6 = this.add.particles('tear');
         tears6.createEmitter({
-            //frame: 'blue',
             x: 547, 
             y: 135,
             lifespan: 2000,
@@ -99,12 +90,7 @@ class Gameover extends Phaser.Scene{
             quantity: 0.1,
             blendMode: 'ADD'
         });
-        //console.log('tears x:',tears3e.x);
         
-
-
-        
-
         this.anims.create({
             key: 'swim1',
             frames: this.anims.generateFrameNames('jellyfishGreendeath', {start: 0, end: 7, first: 0}),
@@ -118,12 +104,10 @@ class Gameover extends Phaser.Scene{
                 repeat: -1
         });
 
-        //console.log(this.jellyfishPink);
         this.jellyfishGreen1.anims.play('swim1');
         this.jellyfishGreen2.anims.play('swim2');
         this.jellyfishGreen3.anims.play('swim1');
-        //this.jellyfishBlue.anims.play('swim2');
-        //this.jellyfishPinkDeath.anims.play('swim3');
+
 
         let gameoverConfig = {
             fontFamily: 'Phosphate',
@@ -163,7 +147,6 @@ class Gameover extends Phaser.Scene{
             }
         };
 
-        //console.log('highscore:', highscore);
         this.scoretext = this.add.text(250, 140, 'High Score:', highscoreConfig).setOrigin(0);
 
         this.add.text(this.scoretext.x + 150, this.scoretext.y, highscore, highscoreConfig).setOrigin(0);
