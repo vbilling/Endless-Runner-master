@@ -97,7 +97,7 @@ class Menu extends Phaser.Scene{
                 //consecutive jumps allowed
                 //jumps: 2
             }
-            this.scene.start('playScene');
+            this.scene.start('introScene');
         }
 
     }
