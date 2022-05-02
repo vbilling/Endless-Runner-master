@@ -46,6 +46,28 @@ class Play extends Phaser.Scene{
         // adding the player (old tutorial)
         this.horse = new Seahorse(this,game.settings.playerStartPosition, game.config.height * 0.7, 'seahorseJump', 0);
 
+                //bubble trail
+        //myParticleSystem = myParticleManager.createEmitter
+        this.bubbles = this.add.particles('littleBubble');
+        this.bubbles.createEmitter({ 
+            x: 50,
+            y: 50,
+            //speed: 1000,
+            lifespan: { min: 50, max: 6000},
+            angle: 180,
+            speed: { min: 50, max: 100},
+            gravityY: -20,
+            gravityX: -10,
+            frequency: 0.2,
+            quantity: 0.01,
+            scale: { start: 0.1, end: 0.3 },
+            follow: this.horse.myArcadeBody,
+            //followOffset: {x: -50, y: -30},
+        });
+        //this.horse.setDepth(2);
+        //this.bubbles.setDepth(1);
+
+
         // set ball vertical gravity
         //this.horse.myArcadeBody.setGravityY = game.settings.playerGravity; //this.horse.body.gravity.y
 
@@ -230,24 +252,6 @@ class Play extends Phaser.Scene{
 
         //console.log('original velocity', this.horse.myArcadeBody.body.velocity.y)
 
-        //bubble trail
-        //myParticleSystem = myParticleManager.createEmitter
-        this.bubbles = this.add.particles('littleBubble');
-        this.bubbles.createEmitter({ 
-            x: 50,
-            y: 50,
-            //speed: 1000,
-            lifespan: { min: 50, max: 6000},
-            angle: 180,
-            speed: { min: 50, max: 100},
-            gravityY: -20,
-            gravityX: -10,
-            frequency: 0.2,
-            quantity: 0.01,
-            scale: { start: 0.1, end: 0.3 },
-            follow: this.horse.myArcadeBody,
-            //followOffset: {x: -50, y: -30},
-        });
 
 
 
