@@ -21,15 +21,19 @@ class Play extends Phaser.Scene{
         this.load.spritesheet('seahorseJump', './assets/seahorsejump.png', {frameWidth: 74, frameHeight: 80, startFrame: 0, endFrame: 1});
         this.load.spritesheet('pinkPlatform', './assets/pinkPlatform.png', {frameWidth: 120, frameHeight: 120, startFrame: 0, endFrame: 1})
 
+        this.load.image('littleBubble', './assets/littleBubble.png'); //or bubble2
+
 
     }
 
     create(){
+        //will keep track if its your first time playing so the instructions are displayed
+        tutorial += 1;
         
         //scrolling background
         this.oceanfield =  this.add.tileSprite(0,0, game.config.width, game.config.height, 'oceanfield').setOrigin(0,0);
         this.oceanfield2 = this.add.tileSprite(0,0, game.config.width, game.config.height, 'oceanfield2').setOrigin(0,0);
-
+        
 
 
         //new tutorial
@@ -177,8 +181,10 @@ class Play extends Phaser.Scene{
         }
         
         //instructions text
-        this.instructions = this.add.text(30, 100, 'Hold SPACE to fall faster and increase your bounce', instructionsConfig).setOrigin(0);
-        this.instructions.setAlpha(0);
+        if(tutorial < 7 ){ 
+            this.instructions = this.add.text(30, 100, 'Hold SPACE to fall faster and increase your bounce', instructionsConfig).setOrigin(0);
+            this.instructions.setAlpha(0);
+        };
         // initilize timer integer at 0 in create
         this.gametimer = 0;
         // write game timer text in update
@@ -222,7 +228,26 @@ class Play extends Phaser.Scene{
         //keeps track of if you hit the platform so that space does not make you keep going down
         this.platformhit = false;
 
-        console.log('original velocity', this.horse.myArcadeBody.body.velocity.y)
+        //console.log('original velocity', this.horse.myArcadeBody.body.velocity.y)
+
+        //bubble trail
+        //myParticleSystem = myParticleManager.createEmitter
+        this.bubbles = this.add.particles('littleBubble');
+        this.bubbles.createEmitter({ 
+            x: 50,
+            y: 50,
+            //speed: 1000,
+            lifespan: { min: 50, max: 6000},
+            angle: 180,
+            speed: { min: 50, max: 100},
+            gravityY: -20,
+            gravityX: -10,
+            frequency: 0.2,
+            quantity: 0.01,
+            scale: { start: 0.1, end: 0.3 },
+            follow: this.horse.myArcadeBody,
+            //followOffset: {x: -50, y: -30},
+        });
 
 
 
@@ -266,7 +291,7 @@ class Play extends Phaser.Scene{
                     //only if the velocity is not too high
                     if (this.horse.myArcadeBody.body.velocity.y < 500){ 
                         this.horse.myArcadeBody.setVelocity(this.horse.myArcadeBody.body.velocity.y + this.downtime*1.5); //this.downtime*10 + 80
-                        console.log('velocity ', this.horse.myArcadeBody.body.velocity.y);
+                        //console.log('velocity ', this.horse.myArcadeBody.body.velocity.y);
                     }
 
                 } 
@@ -306,19 +331,22 @@ class Play extends Phaser.Scene{
             this.scene.start('gameoverScene');
         };
         //make intruction text faded in then away afer a few seconds
-        if (this.gametimer/60 > 0){
-            this.instructions.setAlpha(0.4);
-        };
-        if (this.gametimer/60 > 0.1){
-            this.instructions.setAlpha(0.8);
-        };
-        if (this.gametimer/60 > 0.2){
-            this.instructions.setAlpha(1);
-        };
         
-        if (Math.round(this.gametimer/60) > 4){
-            this.instructions.setAlpha(0);
-        };
+        if(tutorial < 7){
+            if (this.gametimer/60 > 0){
+                this.instructions.setAlpha(0.4);
+            };
+            if (this.gametimer/60 > 0.1){
+                this.instructions.setAlpha(0.8);
+            };
+            if (this.gametimer/60 > 0.2){
+                this.instructions.setAlpha(1);
+            };
+        
+            if (Math.round(this.gametimer/60) > 4){
+                this.instructions.setAlpha(0);
+            };
+        };   
         //console.log('player jumps ' + this.horse.playerJumps);
         this.oceanfield.tilePositionX += .5;
         this.oceanfield2.tilePositionX -= .5;

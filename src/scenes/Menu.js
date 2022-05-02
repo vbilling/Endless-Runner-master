@@ -4,6 +4,8 @@ class Menu extends Phaser.Scene{
     }
     preload(){
         this.load.image('titleScreen', './assets/titleScreen.png');
+        this.load.image('baby', './assets/baby.png');
+        this.load.image('title', './assets/title.png')
 
     }
     create(){
@@ -32,6 +34,29 @@ class Menu extends Phaser.Scene{
         keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
         this.pointer = this.input.activePointer;
+
+        //baby seahorse particles
+        var babies = this.add.particles('baby');
+        babies.createEmitter({
+            //frame: 'blue',
+            x: 420, 
+            y: 290,
+            lifespan: 3000,
+            speed: { min: 50, max: 100},
+            angle: 300,
+            //gravityY: -50,
+            frequency: 0.5,
+            gravityX: -120,
+            scale: { start: 1, end: 1.5 }, //0.4, 0
+            quantity: 0.003,
+            //blendMode: 'ADD'
+        });
+
+        this.add.sprite(23.5, -17, 'title').setOrigin(0);
+        
+        // menu text
+
+        this.startText = this.add.text(game.config.width/2 + 15, game.config.height/2 - 50,'press space to start', menuConfig).setOrigin(0.5);
 
         
 
@@ -74,7 +99,7 @@ class Menu extends Phaser.Scene{
                 //consecutive jumps allowed
                 //jumps: 2
             }
-            this.scene.start('introScene');
+            this.scene.start('playScene');
         }
 
     }

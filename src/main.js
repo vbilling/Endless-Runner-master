@@ -16,6 +16,9 @@ let game = new Phaser.Game(config);
 
 let highscore = 0;
 
+//will keep track if its your first time playing so the instructions are displayed
+let tutorial = 0;
+
 // reserve keyboard vars
 let keyLEFT;
 
