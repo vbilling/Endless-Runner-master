@@ -4,9 +4,7 @@ class Gameover extends Phaser.Scene{
     }
     preload(){
         this.load.image('deathScreen', './assets/deathScreen.png');
-        this.load.spritesheet('jellyfishGreen', './assets/jellyfishGreen.png', {frameWidth: 180, frameHeight: 180, startFrame: 0, endFrame: 7});
-        this.load.spritesheet('jellyfishBlue', './assets/jellyfishBlue.png', {frameWidth: 180, frameHeight: 180, startFrame: 0, endFrame: 7});
-        this.load.spritesheet('jellyfishPinkDeath', './assets/jellyfishPink.png', {frameWidth: 180, frameHeight: 180, startFrame: 0, endFrame: 7});
+        this.load.spritesheet('jellyfishGreendeath', './assets/jellyfishGreen.png', {frameWidth: 180, frameHeight: 180, startFrame: 0, endFrame: 7});
         this.load.image('deadSeahorse', './assets/deadSeahorse.png');
 
         this.load.image('tear', './assets/tear.png');
@@ -15,9 +13,9 @@ class Gameover extends Phaser.Scene{
     }
     create(){
         this.deathScreen = this.add.tileSprite(0, 0, 640, 480, 'deathScreen').setOrigin(0, 0);
-        this.jellyfishGreen1 = this.add.sprite(30, 45, 'jellyfishGreen').setOrigin(0);
-        this.jellyfishGreen2 = this.add.sprite(230, 10, 'jellyfishGreen').setOrigin(0);
-        this.jellyfishGreen3 = this.add.sprite(430, 45, 'jellyfishGreen').setOrigin(0);
+        this.jellyfishGreen1 = this.add.sprite(30, 45, 'jellyfishGreendeath').setOrigin(0);
+        this.jellyfishGreen2 = this.add.sprite(230, 10, 'jellyfishGreendeath').setOrigin(0);
+        this.jellyfishGreen3 = this.add.sprite(430, 45, 'jellyfishGreendeath').setOrigin(0);
         //this.jellyfishBlue = this.add.sprite(230, 10, 'jellyfishBlue').setOrigin(0);
         //this.jellyfishPinkDeath = this.add.sprite(430, 45, 'jellyfishPinkDeath').setOrigin(0);
         this.deadSeahorse = this.add.sprite(200, 290, 'deadSeahorse').setOrigin(0);
@@ -109,22 +107,17 @@ class Gameover extends Phaser.Scene{
 
         this.anims.create({
             key: 'swim1',
-            frames: this.anims.generateFrameNames('jellyfishGreen', {start: 0, end: 7, first: 0}),
+            frames: this.anims.generateFrameNames('jellyfishGreendeath', {start: 0, end: 7, first: 0}),
                 frameRate: 7,
                 repeat: -1
         });
         this.anims.create({
             key: 'swim2',
-            frames: this.anims.generateFrameNames('jellyfishGreen', {start: 1, end: 7, first: 0}),
+            frames: this.anims.generateFrameNames('jellyfishGreendeath', {start: 1, end: 7, first: 0}),
                 frameRate: 7,
                 repeat: -1
         });
-        this.anims.create({
-            key: 'swim3',
-            frames: this.anims.generateFrameNames('jellyfishPinkDeath', {start: 0, end: 7, first: 0}),
-                frameRate: 7,
-                repeat: -1
-        });
+
         //console.log(this.jellyfishPink);
         this.jellyfishGreen1.anims.play('swim1');
         this.jellyfishGreen2.anims.play('swim2');
@@ -158,12 +151,12 @@ class Gameover extends Phaser.Scene{
         };
 
         let highscoreConfig = {
-            fontFamily: 'Chalkduster',
-            fontSize: '20px',
-            color: 'white',
+            fontFamily: 'Brush Script MT',
+            fontSize: '35px',
+            color: 'white', //#fff8ab
             align: 'center',
             stroke: 'black', //#526aba
-            strokeThickness: 3.5,
+            strokeThickness: 4,
             padding: {
                 top: 5,
                 bottom: 4
@@ -173,9 +166,9 @@ class Gameover extends Phaser.Scene{
         //console.log('highscore:', highscore);
         this.scoretext = this.add.text(250, 140, 'High Score:', highscoreConfig).setOrigin(0);
 
-        this.add.text(this.scoretext.x + 130, this.scoretext.y, highscore, highscoreConfig).setOrigin(0);
-        this.add.text(140, 170, 'GAME OVER', gameoverConfig).setOrigin(0);
-        this.instructions = this.add.text(170, 250, 'press space to restart', instructionsConfig).setOrigin(0);
+        this.add.text(this.scoretext.x + 150, this.scoretext.y, highscore, highscoreConfig).setOrigin(0);
+        this.add.text(140, 190, 'GAME OVER', gameoverConfig).setOrigin(0);
+        this.instructions = this.add.text(170, 270, 'Press SPACE to restart', instructionsConfig).setOrigin(0);
 
         //defining keys (probs will delete this)
         this.pointer = this.input.activePointer;

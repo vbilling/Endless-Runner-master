@@ -28,6 +28,8 @@ class Jellyfish extends Phaser.GameObjects.Sprite{
             }
         }, this);
 
+       
+
 
         //adding new platforms 
         if(minDistance > this.nextPlatformDistance){

@@ -27,7 +27,6 @@ class Menu extends Phaser.Scene{
         this.titleScreen = this.add.tileSprite(0, 0, 640, 480, 'titleScreen').setOrigin(0, 0);
 
         // menu text
-
         this.startText = this.add.text(game.config.width/2 + 15, game.config.height/2 - 50,'press space to start', menuConfig).setOrigin(0.5);
 
         //define key
@@ -55,7 +54,6 @@ class Menu extends Phaser.Scene{
         this.add.sprite(23.5, -17, 'title').setOrigin(0);
         
         // menu text
-
         this.startText = this.add.text(game.config.width/2 + 15, game.config.height/2 - 50,'press space to start', menuConfig).setOrigin(0.5);
 
         
@@ -73,7 +71,7 @@ class Menu extends Phaser.Scene{
                 ballPosition: 1 / 5,
  
                 // distance range from the center of each platform, in pixels
-                platformDistanceRange: [15, 25], //150, 250
+                platformDistanceRange: [15, 60], //150, 250
  
                 //FROM PAST TUTORIAL
                 platformStartSpeed: 300, //used to be 350 //same at platformSpeed // 250
@@ -87,7 +85,7 @@ class Menu extends Phaser.Scene{
                 //a scale to be multiplied by platform HeightRange
                 platformHeightScale: 20, 
                 //platform max and min height
-                platformVerticalLimit: [0.4,0.8],
+                platformVerticalLimit: [0.6,0.9], //0.4,0.8
                 //player Gravity
                 playerGravity: 500, //is ballGravity
                 //player jump force 
@@ -99,7 +97,7 @@ class Menu extends Phaser.Scene{
                 //consecutive jumps allowed
                 //jumps: 2
             }
-            this.scene.start('introScene');
+            this.scene.start('playScene');
         }
 
     }

@@ -10,18 +10,21 @@ class Play extends Phaser.Scene{
         this.load.image('oceanfield2', './assets/oceanfield2.png');
         this.load.atlas('seahorse', './assets/seahorse.png', './assets/seahorse.json');
         this.load.atlas('jellyfish', './assets/jellyfishplatform.png', './assets/jellyfish.json');
-        this.load.atlas('jellyfishPink', './assets/jellyfishPink.png', './assets/jellyfishPink.json');
-        this.load.spritesheet('jellyfishGreen', './assets/jellyfishGreen.png', {frameWidth: 180, frameHeight: 180, startFrame: 0, endFrame: 7});
-        this.load.spritesheet('jellyfishBlue', './assets/jellyfishBlue.png', {frameWidth: 180, frameHeight: 180, startFrame: 0, endFrame: 7});
+        this.load.spritesheet('jellyfishPink', './assets/jellyfishPink.png', {frameWidth: 180, frameHeight: 180, startFrame: 0, endFrame: 1});
+        this.load.spritesheet('jellyfishGreen', './assets/jellyfishGreencopy.png', {frameWidth: 180, frameHeight: 180, startFrame: 0, endFrame: 1});
+        this.load.spritesheet('jellyfishBlue', './assets/jellyfishBlue.png', {frameWidth: 180, frameHeight: 180, startFrame: 0, endFrame: 1});
         this.load.image('bubble', './assets/bubble.png');
         this.load.image('thoughtBubble', './assets/thoughtBubble.png');
         this.load.spritesheet('expressions', './assets/expressions.png', {frameWidth: 500, frameHeight: 375, startFrame: 0, endFrame: 7});
+        this.load.spritesheet('jellyfishOrange', './assets/jellyfishOrange.png', {frameWidth: 180, frameHeight: 180, startFrame: 0, endFrame: 1});
+        this.load.image('collectables', '/assets/collectable.png');
 
 
         this.load.spritesheet('seahorseJump', './assets/seahorsejump.png', {frameWidth: 74, frameHeight: 80, startFrame: 0, endFrame: 1});
         this.load.spritesheet('pinkPlatform', './assets/pinkPlatform.png', {frameWidth: 120, frameHeight: 120, startFrame: 0, endFrame: 1})
 
         this.load.image('littleBubble', './assets/littleBubble.png'); //or bubble2
+        //this.load.atlas('seahorserun', './assets/seahorserun.png', './assets/seahorserun.json'); //the correct run animation
 
 
     }
@@ -43,29 +46,14 @@ class Play extends Phaser.Scene{
         // ball sprite bound to an ARCADE body
         //this.horse = this.physics.add.sprite(game.config.width * game.settings.ballPosition, game.config.height * game.settings.groundPosition - game.settings.jumpForce, "seahorseJump");
 
-        // adding the player (old tutorial)
-        this.horse = new Seahorse(this,game.settings.playerStartPosition, game.config.height * 0.7, 'seahorseJump', 0);
 
-                //bubble trail
-        //myParticleSystem = myParticleManager.createEmitter
-        this.bubbles = this.add.particles('littleBubble');
-        this.bubbles.createEmitter({ 
-            x: 50,
-            y: 50,
-            //speed: 1000,
-            lifespan: { min: 50, max: 6000},
-            angle: 180,
-            speed: { min: 50, max: 100},
-            gravityY: -20,
-            gravityX: -10,
-            frequency: 0.2,
-            quantity: 0.01,
-            scale: { start: 0.1, end: 0.3 },
-            follow: this.horse.myArcadeBody,
-            //followOffset: {x: -50, y: -30},
-        });
+        
+
+
+        
+        //this.bubbles.setDepth(0);
         //this.horse.setDepth(2);
-        //this.bubbles.setDepth(1);
+
 
 
         // set ball vertical gravity
@@ -123,6 +111,38 @@ class Play extends Phaser.Scene{
         
         this.jellyfish3.addPlatform(game.config.width, game.config.width/2, game.config.height * game.settings.platformVerticalLimit[1] );
 
+        this.jellyfish4 = new Jellyfish(this, this.platformPool, this.platformGroup, 'jellyfishOrange');
+        
+        this.jellyfish4.addPlatform(game.config.width, game.config.width/2, game.config.height * game.settings.platformVerticalLimit[1] );
+
+        
+
+
+
+
+
+        //bubble trail
+        //myParticleSystem = myParticleManager.createEmitter
+        this.bubbles = this.add.particles('littleBubble');
+        this.makebubble = this.bubbles.createEmitter({ 
+            x: 50,
+            y: 50,
+            //speed: 1000,
+            lifespan: { min: 50, max: 6000},
+            angle: 180,
+            speed: { min: 50, max: 100},
+            gravityY: -20,
+            gravityX: -10,
+            frequency: 0.2,
+            quantity: 0.01,
+            scale: { start: 0.1, end: 0.3 },
+            //follow: this.horse.myArcadeBody,
+        });
+        // adding the player 
+        this.horse = new Seahorse(this,game.settings.playerStartPosition, game.config.height * 0.7, 'seahorse', 0);
+
+        this.makebubble.startFollow(this.horse.myArcadeBody);
+
 
 
         //adding seahorse expression
@@ -141,11 +161,11 @@ class Play extends Phaser.Scene{
                 repeat: -1
         });
 
-        this.anims.create({
-            key: 'horsejump',
-            frames: this.anims.generateFrameNames('seahorseJump', {start: 1, end: 0, first: 0}),
-            frameRate: 5
-        });
+        //this.anims.create({
+            //key: 'horsejump',
+            //frames: this.anims.generateFrameNames('seahorseJump', {start: 1, end: 0, first: 0}),
+            //frameRate: 5
+        //});
 
 
         //this.horse.myArcadeBody.anims.play('move');
@@ -155,6 +175,7 @@ class Play extends Phaser.Scene{
         //from old tutorial
         // setting collisions between the player and the platform group
         this.physics.add.collider(this.horse.myArcadeBody, this.platformGroup);
+        
 
        
         //will eventually delete
@@ -232,9 +253,9 @@ class Play extends Phaser.Scene{
         "I'm scalloping as fast\n as I can!",
         "If 3 is triplets, what\n is 1,000?",
         "Outta the way Daddy's \n coming!",
-        "I'll name you daddy jr and \n daddy jr jr, anddaddy jr jr \njr...",
+        "I'll name you daddy jr and \n daddy jr jr...",
         "Almost there baby!",
-        "Oh god how am I going \nto pay for 1,000 college tuitions?!",
+        "Oh god how am I going to\n pay for 1,000 college tuitions?!",
         "This is the happiest day of my life"
         ]
         this.phrasestimer = 0;
@@ -304,7 +325,7 @@ class Play extends Phaser.Scene{
         }
 
         //if you are going up too fast
-        if (this.horse.myArcadeBody.body.velocity.y < -500){
+        if (this.horse.myArcadeBody.body.velocity.y < -600){
             this.horse.myArcadeBody.setVelocity(this.horse.myArcadeBody.body.velocity.y + 200);
 
         }
@@ -359,6 +380,7 @@ class Play extends Phaser.Scene{
         this.horse.update();
         
         this.jellyfish.update();  
+
         
         this.gametimer += 1;
         this.timertext.text = Math.round(this.gametimer/60);
@@ -372,7 +394,6 @@ class Play extends Phaser.Scene{
         }else{
             this.pick_phrase = random(0,this.phrases_array.length - 1);
             this.phrasetext.text = this.phrases_array[this.pick_phrase];
-            console.log('expression frame:', this.pick_phrase);
             this.expression.setFrame(this.pick_phrase);
             this.phrasestimer = 0;
         };
