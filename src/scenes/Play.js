@@ -224,6 +224,10 @@ class Play extends Phaser.Scene{
 
     update(){
         //making the game get progressivly harder
+        if(Math.round(this.gametimer/60) == 0){
+            game.settings.platformSizeRange =[1,1];
+            game.settings.platformVerticalLimit = [0.9,0.9]
+        };
         if(Math.round(this.gametimer/60) < 5){
             game.settings.platformSizeRange =[1,1];
             game.settings.platformVerticalLimit = [0.9,0.9]
@@ -234,8 +238,7 @@ class Play extends Phaser.Scene{
         };
         if(Math.round(this.gametimer/60) > 8 ){ 
             game.settings.platformSizeRange =[50, 100]; 
-            game.settings.platformVerticalLimit = [0.5 ,0.9];
-            game.settings.platformStartSpeed = 500;
+            game.settings.platformVerticalLimit = [0.5 ,0.9]; 
             game.settings.spawnRange = [20, 200]; 
         };
 
