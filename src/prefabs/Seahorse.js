@@ -28,9 +28,7 @@ class Seahorse extends Phaser.GameObjects.Sprite{
     create(){
 
     }
-
-
-    //the player jumps when on the ground, or in the air if any jumps are left            
+        
     update(){
 
         this.myArcadeBody.x = game.settings.playerStartPosition;

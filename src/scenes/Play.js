@@ -4,12 +4,8 @@ class Play extends Phaser.Scene{
     }
     preload(){
 
-        this.load.image('platform', './assets/platform.png');
-        this.load.image('player', './assets/player.png');
         this.load.image('oceanfield', './assets/oceanfield.png');
         this.load.image('oceanfield2', './assets/oceanfield2.png');
-        //this.load.atlas('seahorse', './assets/seahorserun.png', './assets/seahorserun.json');
-        this.load.atlas('jellyfish', './assets/jellyfishplatform.png', './assets/jellyfish.json');
         this.load.spritesheet('jellyfishPink', './assets/jellyfishPink.png', {frameWidth: 180, frameHeight: 180, startFrame: 0, endFrame: 1});
         this.load.spritesheet('jellyfishGreen', './assets/jellyfishGreencopy.png', {frameWidth: 180, frameHeight: 180, startFrame: 0, endFrame: 1});
         this.load.spritesheet('jellyfishBlue', './assets/jellyfishBlue.png', {frameWidth: 180, frameHeight: 180, startFrame: 0, endFrame: 1});
@@ -62,19 +58,19 @@ class Play extends Phaser.Scene{
         this.jellyfish = new Jellyfish(this, this.platformPool, this.platformGroup, 'jellyfishPink'); //or switch to pinkPlatform for smaller one
 
         
-        this.jellyfish.addPlatform(game.config.width, game.config.width/2, game.config.height * game.settings.platformVerticalLimit[1] );
+        this.jellyfish.addPlatform(game.config.width/2, game.config.height * game.settings.platformVerticalLimit[1] );
 
         this.jellyfish2 = new Jellyfish(this, this.platformPool, this.platformGroup, 'jellyfishGreen');
         
-        this.jellyfish2.addPlatform(game.config.width, game.config.width/2, game.config.height * game.settings.platformVerticalLimit[1] );
+        this.jellyfish2.addPlatform(game.config.width/2, game.config.height * game.settings.platformVerticalLimit[1] );
         
         this.jellyfish3 = new Jellyfish(this, this.platformPool, this.platformGroup, 'jellyfishBlue');
         
-        this.jellyfish3.addPlatform(game.config.width, game.config.width/2, game.config.height * game.settings.platformVerticalLimit[1] );
+        this.jellyfish3.addPlatform(game.config.width/2, game.config.height * game.settings.platformVerticalLimit[1] );
 
         this.jellyfish4 = new Jellyfish(this, this.platformPool, this.platformGroup, 'jellyfishOrange');
         
-        this.jellyfish4.addPlatform(game.config.width, game.config.width/2, game.config.height * game.settings.platformVerticalLimit[1] );
+        this.jellyfish4.addPlatform(game.config.width/2, game.config.height * game.settings.platformVerticalLimit[1] );
 
         
 
@@ -118,28 +114,12 @@ class Play extends Phaser.Scene{
                 frameRate: 12,
                 repeat: -1
         });
-
-        //this.anims.create({
-            //key: 'horsejump',
-            //frames: this.anims.generateFrameNames('seahorseJump', {start: 1, end: 0, first: 0}),
-            //frameRate: 5
-        //});
-
-
         this.horse.myArcadeBody.anims.play('move');
-
 
        
         //from old tutorial
         // setting collisions between the player and the platform group
         this.physics.add.collider(this.horse.myArcadeBody, this.platformGroup);
-
-        
-        
-
-       
-        //will eventually delete
-        this.input.on("pointerdown", this.jump, this);
 
         //game over
         this.gameover = false;
@@ -242,24 +222,6 @@ class Play extends Phaser.Scene{
         
     }
 
-    jump(){
-        if(this.horse.myArcadeBody.body.touching.down || (this.horse.playerJumps > 0 && this.horse.playerJumps < game.settings.jumps)){
-            
-            if(this.horse.myArcadeBody.body.touching.down){
-                this.horse.playerJumps = 0;  
-
-            }
-
-            this.horse.myArcadeBody.anims.play('horsejump');
-            this.horse.myArcadeBody.setVelocityY(game.settings.jumpForce * -1);
-            this.horse.playerJumps++;
-            
-        }
-
-
-    }
-
-    
     update(){
         //making the game get progressivly harder
         if(Math.round(this.gametimer/60) < 5){
@@ -284,18 +246,16 @@ class Play extends Phaser.Scene{
             //will keep track of if you hit the platform
             this.platformhit = true;
 
-        };
-        if(keySpace.isDown){ //!this.horse.myArcadeBody.body.touching.down
+        }
+
+        if(keySpace.isDown){ 
             if(!this.horse.myArcadeBody.body.touching.down){
                 this.downtime += 1;
-                // console.log('downtime:', this.downtime);
-                //console.log('platform hit?', this.platformhit);
                 //the longer you hold it down, the higher you bounce
                 if(this.downtime > 6 && !this.platformhit){
                     //only if the velocity is not too high
                     if (this.horse.myArcadeBody.body.velocity.y < 500){ 
                         this.horse.myArcadeBody.setVelocity(this.horse.myArcadeBody.body.velocity.y + this.downtime*1.5); //this.downtime*10 + 80
-                        //console.log('velocity ', this.horse.myArcadeBody.body.velocity.y);
                     }
 
                 } 
@@ -331,7 +291,6 @@ class Play extends Phaser.Scene{
                 highscore = Math.round(this.gametimer/60);
                 //console.log('final highscore:', highscore);
             };
-            this.scene.restart();
             this.scene.start('gameoverScene');
         };
         //make intruction text faded in then away afer a few seconds
@@ -355,10 +314,28 @@ class Play extends Phaser.Scene{
         this.oceanfield.tilePositionX += .5;
         this.oceanfield2.tilePositionX -= .5;
 
+        if(this.platformhit){
+            this.jellyfish.platform.setFrame(1);
+            this.jellyfish2.platform.setFrame(1);
+            this.jellyfish3.platform.setFrame(1);
+            this.jellyfish4.platform.setFrame(1);
+        }
+
+        if(!this.platformhit){
+            this.jellyfish.platform.setFrame(0);
+            this.jellyfish2.platform.setFrame(0);
+            this.jellyfish3.platform.setFrame(0);
+            this.jellyfish4.platform.setFrame(0);
+        }
+
 
         this.horse.update();
         
         this.jellyfish.update();  
+        this.jellyfish2.update(); 
+        this.jellyfish3.update(); 
+        this.jellyfish4.update(); 
+
 
         
         this.gametimer += 1;
@@ -369,7 +346,6 @@ class Play extends Phaser.Scene{
         // makeing a random phrase from the phrases array be choosen and appear after a few seconds 
         if(this.phrasestimer < 400) {
             this.phrasestimer += 1;
-            //console.log('phrasestimer =', this.phrasestimer);
         }else{
             this.pick_phrase = random(0,this.phrases_array.length - 1);
             this.phrasetext.text = this.phrases_array[this.pick_phrase];

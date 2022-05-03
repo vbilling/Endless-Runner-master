@@ -92,12 +92,8 @@ class Menu extends Phaser.Scene{
                 jumpForce: 900, //used to be 500 //is ballHeight
                 //player starting x position
                 playerStartPosition: 150, 
-
-                //kinda want to delete this
-                //consecutive jumps allowed
-                //jumps: 2
             }
-            this.scene.start('introScene');
+            this.scene.start('playScene');
         }
 
     }

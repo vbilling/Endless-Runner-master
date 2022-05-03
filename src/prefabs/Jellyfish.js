@@ -9,6 +9,8 @@ class Jellyfish extends Phaser.GameObjects.Sprite{
         this.texture = texture;
         this.addedPlatforms = 0;
 
+        this.platform;
+
 
     }
     update(){
@@ -28,9 +30,6 @@ class Jellyfish extends Phaser.GameObjects.Sprite{
             }
         }, this);
 
-       
-
-
         //adding new platforms 
         if(minDistance > this.nextPlatformDistance){
             let nextPlatformWidth = Phaser.Math.Between(game.settings.platformSizeRange[0], game.settings.platformSizeRange[1]);
@@ -39,30 +38,29 @@ class Jellyfish extends Phaser.GameObjects.Sprite{
             let minPlatformHeight = game.config.height * game.settings.platformVerticalLimit[0];
             let maxPlatformHeight = game.config.height * game.settings.platformVerticalLimit[1];
             let nextPlatformHeight = Phaser.Math.Clamp(nextPlatformGap, minPlatformHeight, maxPlatformHeight);
-            this.addPlatform(nextPlatformWidth, game.config.width + nextPlatformWidth/2, nextPlatformHeight); 
+            this.addPlatform(game.config.width + nextPlatformWidth/2, nextPlatformHeight); 
         }
 
     }
 
     // platforms are added from the pool or generated
-    addPlatform(platformWidth, posX, posY){
+    addPlatform(posX, posY){
         this.addedPlatforms++;
-        let platform;
         //console.log('getLength', this.pool.getLength());
         if(this.pool.getLength()){
-            platform = this.pool.getFirst();
-            platform.x = posX;
-            platform.y = posY;
-            platform.active = true;
-            platform.visible = true;
-            this.pool.remove(platform);
+            this.platform = this.pool.getFirst();
+            this.platform.x = posX;
+            this.platform.y = posY;
+            this.platform.active = true;
+            this.platform.visible = true;
+            this.pool.remove(this.platform);
         }
         else{
-            platform = this.scene.physics.add.sprite(posX, posY, this.texture);
-            platform.setImmovable(true); //platforms fall when set ot false
-            platform.setSize(100, 80);
-            platform.setVelocityX(game.settings.platformStartSpeed * - 1);
-            this.group.add(platform);
+            this.platform = this.scene.physics.add.sprite(posX, posY, this.texture);
+            this.platform.setImmovable(true); //platforms fall when set ot false
+            this.platform.setSize(100, 80);
+            this.platform.setVelocityX(game.settings.platformStartSpeed * - 1);
+            this.group.add(this.platform);
         }
         this.nextPlatformDistance = Phaser.Math.Between(game.settings.spawnRange[0], game.settings.spawnRange[1]);
     }
