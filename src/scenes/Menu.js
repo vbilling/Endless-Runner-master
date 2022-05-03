@@ -24,7 +24,7 @@ class Menu extends Phaser.Scene{
         // background around window
         document.body.style.backgroundColor = "#48cad9";
         // loading title screen
-        this.titleScreen = this.add.tileSprite(0, 0, 640, 480, 'titleScreen').setOrigin(0, 0);
+        this.titleScreen = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'titleScreen').setOrigin(0, 0);
 
         // menu text
         this.startText = this.add.text(game.config.width/2 + 15, game.config.height/2 - 50,'press space to start', menuConfig).setOrigin(0.5);
@@ -93,7 +93,7 @@ class Menu extends Phaser.Scene{
                 //player starting x position
                 playerStartPosition: 150, 
             }
-            this.scene.start('playScene');
+            this.scene.start('instructionScene');
         }
 
     }
