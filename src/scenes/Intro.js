@@ -6,7 +6,7 @@ class Intro extends Phaser.Scene{
         this.load.spritesheet('intro1', './assets/intro1.png', {frameWidth: 640, frameHeight: 480, startFrame: 0});
         this.load.spritesheet('intro2', './assets/intro2.png', {frameWidth: 640, frameHeight: 480, startFrame: 0});
         this.load.spritesheet('intro3', './assets/intro3.png', {frameWidth: 640, frameHeight: 480, startFrame: 0});
-        this.load.audio('introSong', './assets/An_Inconvenient_Labor.wav');
+        this.load.audio('introSong', './assets/An_Inconvenient_Labor.mp3');
 
     }
     create(){
