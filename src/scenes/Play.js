@@ -256,6 +256,7 @@ class Play extends Phaser.Scene{
         if (this.horse.myArcadeBody.body.touching.down){
             //console.log('touching down');
             //will keep track of if you hit the platform
+            this.bouncing.play();
             this.platformhit = true;
 
         }
@@ -326,21 +327,6 @@ class Play extends Phaser.Scene{
         //console.log('player jumps ' + this.horse.playerJumps);
         this.oceanfield.tilePositionX += .5;
         this.oceanfield2.tilePositionX -= .5;
-
-        if(this.platformhit){
-            this.bouncing.play();
-            this.jellyfish.platform.setFrame(1);
-            this.jellyfish2.platform.setFrame(1);
-            this.jellyfish3.platform.setFrame(1);
-            this.jellyfish4.platform.setFrame(1);
-        }
-
-        if(!this.platformhit){
-            this.jellyfish.platform.setFrame(0);
-            this.jellyfish2.platform.setFrame(0);
-            this.jellyfish3.platform.setFrame(0);
-            this.jellyfish4.platform.setFrame(0);
-        }
 
 
         this.horse.update();
