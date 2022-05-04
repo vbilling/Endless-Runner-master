@@ -24,6 +24,16 @@ let keyLEFT;
 
 let keySpace;
 
+/*
+Made by: Victoria Billings, Karoline Lujan, William Morales 
+Completed on: May 4, 2022
+Creative Tilt: 
+the way our mechanic makes you fall faster by holding space 
+and an automatic jump is unique and beyond the examples in class. 
+The use of particles for the baby seahorses in the title screen, bubble trail, 
+and jelly fish tears are art that I am proud of and the seahorse's thoughts 
+is a funny and creative element. The music is also all original!
+*/
 
 
 
