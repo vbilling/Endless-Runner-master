@@ -7,9 +7,15 @@ class Gameover extends Phaser.Scene{
         this.load.spritesheet('jellyfishGreendeath', './assets/jellyfishGreen.png', {frameWidth: 180, frameHeight: 180, startFrame: 0, endFrame: 7});
         this.load.image('deadSeahorse', './assets/deadSeahorse.png');
         this.load.image('tear', './assets/tear.png');
+        this.load.audio('end', './assets/Jellyfish_Ending.wav');
 
     }
     create(){
+
+        this.end = this.sound.add('end');
+        this.end.play();
+        this.end.loop = true;
+
         this.deathScreen = this.add.tileSprite(0, 0, 640, 480, 'deathScreen').setOrigin(0, 0);
         this.jellyfishGreen1 = this.add.sprite(30, 45, 'jellyfishGreendeath').setOrigin(0);
         this.jellyfishGreen2 = this.add.sprite(230, 10, 'jellyfishGreendeath').setOrigin(0);
@@ -165,6 +171,7 @@ class Gameover extends Phaser.Scene{
         //make instructions move up and down
         
         if (keySpace.isDown) {
+            this.end.stop();
             this.scene.start('playScene');    
           };
 

@@ -5,10 +5,17 @@ class Menu extends Phaser.Scene{
     preload(){
         this.load.image('titleScreen', './assets/titleScreen.png');
         this.load.image('baby', './assets/baby.png');
-        this.load.image('title', './assets/title.png')
+        this.load.image('title', './assets/title.png');
+
+        this.load.audio('menuSong', './assets/Daddy_Seahorse_Title_Screen.wav');
 
     }
     create(){
+
+        this.menuSong = this.sound.add('menuSong');
+        this.menuSong.play();
+        this.menuSong.loop = true;
+
         let menuConfig = {
             fontFamily: 'Phosphate',
             fontSize: '24px',
@@ -32,7 +39,6 @@ class Menu extends Phaser.Scene{
         //define key
         keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-        this.pointer = this.input.activePointer;
 
         //baby seahorse particles
         var babies = this.add.particles('baby');
@@ -62,7 +68,7 @@ class Menu extends Phaser.Scene{
     }
     update(){
 
-        if(Phaser.Input.Keyboard.JustDown(keySpace) || this.pointer.isDown ){
+        if(Phaser.Input.Keyboard.JustDown(keySpace) ){
             game.settings = {
                 // ground position, where 0: top of the screen, 1: bottom of the screen
                 groundPosition: 3 / 4,
@@ -93,7 +99,8 @@ class Menu extends Phaser.Scene{
                 //player starting x position
                 playerStartPosition: 150, 
             }
-            this.scene.start('instructionScene');
+            this.menuSong.stop();
+            this.scene.start('introScene');
         }
 
     }

@@ -6,9 +6,15 @@ class Intro extends Phaser.Scene{
         this.load.spritesheet('intro1', './assets/intro1.png', {frameWidth: 640, frameHeight: 480, startFrame: 0});
         this.load.spritesheet('intro2', './assets/intro2.png', {frameWidth: 640, frameHeight: 480, startFrame: 0});
         this.load.spritesheet('intro3', './assets/intro3.png', {frameWidth: 640, frameHeight: 480, startFrame: 0});
+        this.load.audio('introSong', './assets/An_Inconvenient_Labor.wav');
 
     }
     create(){
+
+        this.introSong = this.sound.add('introSong');
+        this.introSong.play();
+        
+
         //defining space key
         keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         let instructionsConfig = {
@@ -148,7 +154,8 @@ class Intro extends Phaser.Scene{
     
     update(){
         if(this.continue == true && keySpace.isDown){
-            this.scene.start('playScene');
+            this.introSong.stop();
+            this.scene.start('instructionScene');
         };
 
     }

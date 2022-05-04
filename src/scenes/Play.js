@@ -22,10 +22,19 @@ class Play extends Phaser.Scene{
         this.load.image('littleBubble', './assets/littleBubble.png'); //or bubble2
         this.load.atlas('seahorserun', './assets/seahorserun.png', './assets/seahorserun.json'); //the correct run animation
 
+        this.load.audio('runJam', './assets/Jellyfish_Run_1.wav');
+        this.load.audio('bounce', './assets/jellyfish_sounds_6.mp3');
+
 
     }
 
     create(){
+
+        this.jam = this.sound.add('runJam');
+        this.bouncing = this.sound.add('bounce');
+        this.jam.play();
+        this.jam.loop = true;
+
         //will keep track if its your first time playing so the instructions are displayed
         tutorial += 1;
         
@@ -177,7 +186,7 @@ class Play extends Phaser.Scene{
         this.bubble.alpha = 0.87;
         this.timertext = this.add.text(564, 27, this.gametimer, gametimerConfig).setOrigin(0); //564
 
-        this.pointer = this.input.activePointer;
+        //this.pointer = this.input.activePointer;
         
         //thought bubble
         this.thoughtBubble = this.add.sprite(110, 5, 'thoughtBubble').setOrigin(0, 0);
@@ -294,6 +303,7 @@ class Play extends Phaser.Scene{
                 highscore = Math.round(this.gametimer/60);
                 //console.log('final highscore:', highscore);
             };
+            this.jam.stop();
             this.scene.start('gameoverScene');
         };
         //make intruction text faded in then away afer a few seconds
@@ -318,6 +328,7 @@ class Play extends Phaser.Scene{
         this.oceanfield2.tilePositionX -= .5;
 
         if(this.platformhit){
+            this.bouncing.play();
             this.jellyfish.platform.setFrame(1);
             this.jellyfish2.platform.setFrame(1);
             this.jellyfish3.platform.setFrame(1);
