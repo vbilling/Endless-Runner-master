@@ -3,6 +3,9 @@ let config = {
     width: 640, 
     height: 480, 
     scene: [ Menu, Play, Intro, Gameover, Instructions], 
+    scale: {
+        autoCenter: Phaser.Scale.CENTER_BOTH
+    },
     physics: {
         default: "arcade", 
         arcade: {
