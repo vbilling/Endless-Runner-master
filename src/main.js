@@ -33,6 +33,9 @@ and an automatic jump is unique and beyond the examples in class.
 The use of particles for the baby seahorses in the title screen, bubble trail, 
 and jelly fish tears are art that I am proud of and the seahorse's thoughts 
 is a funny and creative element. The music is also all original!
+
+Code for random platform generation came from:
+https://www.emanueleferonato.com/tag/endless-runner/
 */
 
 
